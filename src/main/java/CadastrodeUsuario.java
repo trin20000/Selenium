@@ -1,4 +1,6 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -8,12 +10,25 @@ import org.openqa.selenium.support.ui.Select;
 
 public class CadastrodeUsuario {
 	
+private WebDriver driver;
+	
+	@Before
+	public void inicializa() {
+		
+		driver = new FirefoxDriver();
+		driver.manage().window().setSize(new Dimension(1200, 765));
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+	}
+	
+	@After	
+	public void finaliza() {
+		
+		driver.quit();
+	}
+	
 	@Test
 	public void interagirComAlertSimples() {
-	WebDriver driver = new FirefoxDriver();
-	driver.manage().window().setSize(new Dimension(1200, 765));
-	driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-	
+		
 	driver.findElement(By.id("elementosForm:nome")).sendKeys("Gilberlei");
 	driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Quaresma");
 	driver.findElement(By.id("elementosForm:sexo:0")).click();
@@ -31,11 +46,9 @@ public class CadastrodeUsuario {
 	Assert.assertEquals("Escolaridade: 1grauincomp", driver.findElement(By.id("descEscolaridade")).getText());
 	Assert.assertEquals("Esportes: Futebol", driver.findElement(By.id("descEsportes")).getText());	
 	
-	driver.quit();	
-		
-	
 	}
 	
 	
-
+	
+	
 }
