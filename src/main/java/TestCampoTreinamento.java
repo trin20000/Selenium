@@ -16,6 +16,7 @@ public class TestCampoTreinamento {
 	
 	
 private WebDriver driver;
+private DSL dsl;
 	
 	@Before
 	public void inicializa() {
@@ -23,30 +24,27 @@ private WebDriver driver;
 		driver = new FirefoxDriver();
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 	
 	@After	
 	public void finaliza() {
 		
 		driver.quit();
-	}
-	
-	
-	
+	}		
 	
 	@Test
 	public void testeTextField() {
-	
-	driver.findElement(By.id("elementosForm:nome")).sendKeys("TestedeEscrita");
-	Assert.assertEquals("TestedeEscrita", driver.findElement(By.id("elementosForm:nome")).getDomProperty("value"));	
+	dsl.escreve("elementosForm:nome", "TestedeEscrita");	
+	Assert.assertEquals("TestedeEscrita", dsl.obterValorCampo("elementosForm:nome"));	
 		
 	}
 	
 	@Test
 	public void deveInteragirComTextArea() {
 	
-	driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("campo texto\ncampo texto");
-	Assert.assertEquals("campo texto\ncampo texto", driver.findElement(By.id("elementosForm:sugestoes")).getDomProperty("value"));	
+	dsl.escreve("elementosForm:sugestoes", "campo texto\ncampo texto");
+	Assert.assertEquals("campo texto\ncampo texto", dsl.obterValorCampo("elementosForm:sugestoes"));
 	
 	}
 	
