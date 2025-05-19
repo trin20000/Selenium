@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 public class TestsRegrasDeNegocios {
 	
 	private WebDriver driver;
+	private DSL dsl;
 	
 	@Before
 	public void inicializa() {
@@ -19,6 +20,8 @@ public class TestsRegrasDeNegocios {
 		driver = new FirefoxDriver();
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		
+		dsl = new DSL(driver);
 	}
 	
 	@After	
@@ -32,10 +35,11 @@ public class TestsRegrasDeNegocios {
 	@Test
 	public void desafioRegrasDeNegocioNome() {
 	
-  	driver.findElement(By.id("elementosForm:cadastrar")).click();
-	
-	Alert alert = driver.switchTo().alert();	
-	Assert.assertEquals("Nome eh obrigatorio", alert.getText());
+  	dsl.clicarBotao("elementosForm:cadastrar");
+  	
+  	Alert alert = driver.switchTo().alert();  	
+  	
+  	Assert.assertEquals("Nome eh obrigatorio", alert.getText());
 	alert.accept();
 		
 	
@@ -44,7 +48,7 @@ public class TestsRegrasDeNegocios {
 	@Test
 	public void desafioRegrasDeNegocioSobrenome() {
 		
-	driver.findElement(By.id("elementosForm:nome")).sendKeys("Gilberlei");
+	dsl.escreve("elementosForm:nome", "Gilberlei");
 	driver.findElement(By.id("elementosForm:cadastrar")).click();	
 	Alert alert = driver.switchTo().alert();	
 	
