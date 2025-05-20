@@ -1,3 +1,5 @@
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -36,6 +38,7 @@ public class DSL {
 		WebElement element = driver.findElement(By.id(id));
 		Select combo = new Select(element);
 		combo.selectByVisibleText(valor);
+		
 	}
 	
 	
@@ -48,17 +51,18 @@ public class DSL {
 
 	public void clicarBotao(String id) {
 	
-	driver.findElement(By.id("id")).click();;
+	driver.findElement(By.id(id)).click();
 	
 	}
 	
+		
 	public void clicarLink(String link) {
 		
 		driver.findElement(By.linkText(link)).click();
 	}
 	
 	
-public String obterTexto(By by) {
+    public String obterTexto(By by) {
 		
 		return driver.findElement(by).getText();
 	}
@@ -70,5 +74,21 @@ public String obterTexto(By by) {
 		
 	}	
 	
+	
+	public int obterQuantidadeOpçoesCombo() {
+		
+		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+		Select combo = new Select(element);
+		List<WebElement> options = combo.getOptions();
+		return options.size();		
+	}
+		
+	public boolean verificarOpcaoCombo() {
+	
+	boolean encontrou = false;
+	for(WebElement option: options) {
+		if (option.getText().equals("Mestrado")) {
+			encontrou = true;
+			break;
 
 }

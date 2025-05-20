@@ -12,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class TestFrameAndJanela {
 	
 private WebDriver driver;
+private DSL dsl;
 	
 	@Before
 	public void inicializa() {
@@ -19,6 +20,8 @@ private WebDriver driver;
 		driver = new FirefoxDriver();
 		driver.manage().window().setSize(new Dimension(1200, 765));
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		
+		dsl = new DSL(driver);
 	}
 	
 	@After	
@@ -33,14 +36,14 @@ private WebDriver driver;
 	public void interagirComAlertSimples() {
 	
 	driver.switchTo().frame("frame1");
-	driver.findElement(By.id("frameButton")).click();
+	dsl.clicarBotao("frameButton");
 	
 	Alert alert = driver.switchTo().alert();
 	String msg = alert.getText();
 	Assert.assertEquals("Frame OK!", msg);
 	alert.accept();
 	driver.switchTo().defaultContent();
-	driver.findElement(By.id("elementosForm:nome")).sendKeys(msg);	
+	dsl.escreve("elementosForm:nome", msg);
 	
 	
 	}
@@ -49,13 +52,13 @@ private WebDriver driver;
 	@Test
 	public void interagirComJanela()  {
 		
-	driver.findElement(By.id("buttonPopUpEasy")).click();
+	dsl.clicarBotao("buttonPopUpEasy");
 	driver.switchTo().window("Popup");
 	
 	driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
 	driver.close();
     driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);	
-	driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("e agora?");	
+	dsl.escreve("elementosForm:sugestoes", "e agora?");
 	
 	
 	}
@@ -65,7 +68,7 @@ private WebDriver driver;
 	@Test
 	public void interagirComJanelaSemTitulo()  {
 		
-	driver.findElement(By.id("buttonPopUpHard")).click();
+	dsl.clicarBotao("buttonPopUpHard");
 	System.out.println(driver.getWindowHandle());
 	System.out.println(driver.getWindowHandles());
 	

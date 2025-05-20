@@ -58,8 +58,8 @@ private DSL dsl;
 	@Test
 	public void deveInteragirComCheckBox() {
 	
-	driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
-	Assert.assertTrue(driver.findElement(By.id("elementosForm:comidaFavorita:0")).isSelected());	
+	dsl.clicarRadio("elementosForm:comidaFavorita:0");	
+	Assert.assertTrue(dsl.isRadioMarcado("elementosForm:comidaFavorita:0"));
 	
 	}
 	
@@ -67,24 +67,17 @@ private DSL dsl;
 	@Test
 	public void deveInteragirComCombo() {
 	
-	WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-	Select combo = new Select(element);
-	//combo.selectByIndex(3);
-	//combo.selectByValue("mestrado");
-	combo.selectByVisibleText("2o grau incompleto");
 	dsl.selecionarCombo("elementosForm:escolaridade", "2o grau incompleto");
 	Assert.assertEquals("2o grau incompleto", dsl.obterValorCombo("elementosForm:escolaridade"));
-	
+
 	}
 	
 	
 	@Test
 	public void verificarValoresCombo() {
 	
-	WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
-	Select combo = new Select(element);
-	List<WebElement> options = combo.getOptions();
-	Assert.assertEquals(8, options.size());
+	
+	Assert.assertEquals(8, dsl.obterQuantidadeOpçoesCombo());
 		
 	boolean encontrou = false;
 	for(WebElement option: options) {
@@ -121,7 +114,7 @@ private DSL dsl;
 	public void deveInteragirComBotoes() {	
 	
 	dsl.clicarBotao("buttonSimple");
-	
+		
 	WebElement buton = driver.findElement(By.id("buttonSimple"));	
 	Assert.assertEquals("Obrigado!", buton.getDomAttribute("value"));
     
