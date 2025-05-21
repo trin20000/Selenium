@@ -1,9 +1,7 @@
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
-
 import java.util.List;
+import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -78,17 +76,10 @@ private DSL dsl;
 	
 	
 	Assert.assertEquals(8, dsl.obterQuantidadeOpçoesCombo());
+	Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:escolaridade", "Mestrado"));
 		
-	boolean encontrou = false;
-	for(WebElement option: options) {
-		if (option.getText().equals("Mestrado")) {
-			encontrou = true;
-			break;	
 		}
-	}
-	Assert.assertTrue(encontrou);
-	
-	}
+
 	
 	
 	@Test
@@ -98,15 +89,13 @@ private DSL dsl;
 	dsl.selecionarCombo("elementosForm:esportes", "Corrida");
 	dsl.selecionarCombo("elementosForm:esportes", "Karate");
 	
-	WebElement element = driver.findElement(By.id("elementosForm:esportes"));
-	Select combo = new Select(element);
+	Assert.assertEquals(3, dsl.obterQuantidadeOpcoesMarcadas("elementosForm:esportes"));
 	
-	List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
-	Assert.assertEquals(3, allSelectedOptions.size());
+	dsl.deselectComboOptions("elementosForm:esportes", "Karate");	
+	Assert.assertEquals(2, dsl.obterQuantidadeOpcoesMarcadas("elementosForm:esportes"));
 	
-	combo.deselectByVisibleText("Corrida");
-	allSelectedOptions = combo.getAllSelectedOptions();
-	Assert.assertEquals(2, allSelectedOptions.size());
+	List<String> opcoesMarcadas = dsl.obterOpcoesMarcadas("elementosForm:esportes");
+	opcoesMarcadas.containsAll(Arrays.asList("Natacao", "Corrida"));
 		
 	}	
 	
@@ -115,9 +104,7 @@ private DSL dsl;
 	
 	dsl.clicarBotao("buttonSimple");
 		
-	WebElement buton = driver.findElement(By.id("buttonSimple"));	
-	Assert.assertEquals("Obrigado!", buton.getDomAttribute("value"));
-    
+	Assert.assertEquals("Obrigado!", dsl.obterValueElemento("buttonSimple"));    
 	
 	}
 	

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -83,12 +84,67 @@ public class DSL {
 		return options.size();		
 	}
 		
-	public boolean verificarOpcaoCombo() {
+	public boolean verificarOpcaoCombo(String id, String opcao) {
 	
-	boolean encontrou = false;
-	for(WebElement option: options) {
-		if (option.getText().equals("Mestrado")) {
-			encontrou = true;
-			break;
+	WebElement element = driver.findElement(By.id(id));
+	Select combo = new Select(element);
+	List<WebElement> options = combo.getOptions();
+		for(WebElement option: options) {
+		if (option.getText().equals(opcao)) {
+		return true;
+		
+			}
+		
+		}
+		return false;
+	}
+	
+	
+	public int obterQuantidadeOpcoesMarcadas(String id) {
+		
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);		
+		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
+		
+		return allSelectedOptions.size();
+	}
+	
+	public void deselectComboOptions(String id, String visibleText) {
+		
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);	
+		combo.deselectByVisibleText(visibleText);
+		
+	}
+	
+	
+	public List<String> obterOpcoesMarcadas(String id) {
+		
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);			
+		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
+		List<String> valores = new ArrayList<String>();
+		
+		for(WebElement opcoes: allSelectedOptions){
+			
+			valores.add(opcoes.getText());			
+		}
+		
+		return valores;			 
+	}
+
+	public String obterValueElemento(String id) {
+		
+		WebElement buton = driver.findElement(By.id(id));
+		
+		return buton.getDomAttribute("value");
+	}
+
+	
+	public void switchToAlert() {
+		
+		
+	}
+
 
 }
