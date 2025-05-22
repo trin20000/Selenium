@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,16 +16,36 @@ public class DSL {
 		
 		this.driver = driver;
 	}
+	
+	
+	/************************* TextField TextAlert  ***************************/
+	
+	
+	
+	
+	public void escreve(By by, String texto ) {
+		
+		driver.findElement(by).clear();
+		driver.findElement(by).sendKeys(texto);
+		
+	}
+	
 
 	public void escreve(String id_campo, String texto ) {	
-	driver.findElement(By.id(id_campo)).sendKeys(texto);
-
-	}
+	
+	escreve(By.id(id_campo), texto);
+	
+	}	
+	
 	
 	public String obterValorCampo(String id_campo) {		
 		return driver.findElement(By.id(id_campo)).getDomProperty("value");
 		
 	}
+	
+	/******************** Radio & Check *****************/
+	
+		
 	
 	public void clicarRadio(String id) {
 		driver.findElement(By.id(id)).click();	
@@ -34,21 +55,7 @@ public class DSL {
 		return driver.findElement(By.id(id)).isSelected();
 	}
 	
-	public void selecionarCombo(String id, String valor) {
-		
-		WebElement element = driver.findElement(By.id(id));
-		Select combo = new Select(element);
-		combo.selectByVisibleText(valor);
-		
-	}
 	
-	
-	public String obterValorCombo(String id) {
-		
-		WebElement element = driver.findElement(By.id(id));
-		Select combo = new Select(element);
-		return combo.getFirstSelectedOption().getText();
-	}
 
 	public void clicarBotao(String id) {
 	
@@ -56,12 +63,17 @@ public class DSL {
 	
 	}
 	
+	
+	/************************* link ****************/
+	
 		
 	public void clicarLink(String link) {
 		
 		driver.findElement(By.linkText(link)).click();
 	}
 	
+	
+	/****************** obter texto **************************/
 	
     public String obterTexto(By by) {
 		
@@ -76,9 +88,29 @@ public class DSL {
 	}	
 	
 	
-	public int obterQuantidadeOpçoesCombo() {
+	/************************ interação com combo **********************/
+	
+	
+public void selecionarCombo(String id, String valor) {
 		
-		WebElement element = driver.findElement(By.id("elementosForm:escolaridade"));
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		combo.selectByVisibleText(valor);
+		
+	}
+	
+	
+	public String obterValorCombo(String id) {
+		
+		WebElement element = driver.findElement(By.id(id));
+		Select combo = new Select(element);
+		return combo.getFirstSelectedOption().getText();
+	}
+	
+	
+	public int obterQuantidadeOpcoesCombo(String id) {
+		
+		WebElement element = driver.findElement(By.id(id));
 		Select combo = new Select(element);
 		List<WebElement> options = combo.getOptions();
 		return options.size();		
@@ -130,21 +162,70 @@ public class DSL {
 			valores.add(opcoes.getText());			
 		}
 		
-		return valores;			 
-	}
-
-	public String obterValueElemento(String id) {
+		return valores;		
 		
-		WebElement buton = driver.findElement(By.id(id));
-		
-		return buton.getDomAttribute("value");
 	}
 
 	
-	public void switchToAlert() {
+	/******************* obter button value *****************/
+	
+	public String obterValueElemento(String id) {
 		
+		return driver.findElement(By.id(id)).getDomAttribute("value");
 		
 	}
 
-
+	
+	/**************** alerts ******************/
+	
+	public void alertEscreve(String texto) {
+	
+	Alert alert = driver.switchTo().alert();
+	alert.sendKeys(texto);
+	alert.accept();
+	
+	}
+	
+	public String alertaObterTexto() {
+		
+		Alert alert = driver.switchTo().alert();		
+		return alert.getText();
+		
+		}	
+	
+	
+	public String alertaObterTextoCancel() {
+		
+		Alert alert = driver.switchTo().alert();
+		String valor = alert.getText();
+		alert.dismiss();
+		return  valor;
+		
+		}	
+	
+	
+	public String alertaObterTextoEAceita() {
+		
+		Alert alert = driver.switchTo().alert();
+		String valor = alert.getText();
+		alert.accept();
+		return  valor;		
+				
+	}	
+	
+	/************************ frame  janela **********************/
+	
+	public void changeToFrame(String framename) {
+	
+	driver.switchTo().frame(framename);
+	
+	}
+	
+	
+	
+	public void switchToWindowPopUp(String janelaName) {
+		
+		driver.switchTo().window(janelaName);
+	}
+	
 }

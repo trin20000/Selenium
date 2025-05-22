@@ -75,7 +75,7 @@ private DSL dsl;
 	public void verificarValoresCombo() {
 	
 	
-	Assert.assertEquals(8, dsl.obterQuantidadeOpçoesCombo());
+	Assert.assertEquals(8, dsl.obterQuantidadeOpcoesCombo("elementosForm:escolaridade"));
 	Assert.assertTrue(dsl.verificarOpcaoCombo("elementosForm:escolaridade", "Mestrado"));
 		
 		}
@@ -95,7 +95,7 @@ private DSL dsl;
 	Assert.assertEquals(2, dsl.obterQuantidadeOpcoesMarcadas("elementosForm:esportes"));
 	
 	List<String> opcoesMarcadas = dsl.obterOpcoesMarcadas("elementosForm:esportes");
-	opcoesMarcadas.containsAll(Arrays.asList("Natacao", "Corrida"));
+	Assert.assertTrue(opcoesMarcadas.containsAll(Arrays.asList("Natacao", "Corrida")));
 		
 	}	
 	
@@ -125,4 +125,15 @@ private DSL dsl;
 	
 	}
 	
+	
+	@Test
+	public void testTextFieldDuplo() {
+		
+		dsl.escreve(By .id("elementosForm:nome"),"Cunhambebe");
+		Assert.assertEquals("Cunhambebe", dsl.obterValorCampo("elementosForm:nome"));		
+		
+		dsl.escreve(By .id("elementosForm:nome"),"Piquerobi");
+		Assert.assertEquals("Piquerobi", dsl.obterValorCampo("elementosForm:nome"));
+		
+	}
 }

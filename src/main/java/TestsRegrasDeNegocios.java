@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -33,13 +32,9 @@ public class TestsRegrasDeNegocios {
 	@Test
 	public void desafioRegrasDeNegocioNome() {
 	
-  	dsl.clicarBotao("elementosForm:cadastrar");
+  	dsl.clicarBotao("elementosForm:cadastrar");  		 		
   	
-  	Alert alert = driver.switchTo().alert();  	
-  	
-  	Assert.assertEquals("Nome eh obrigatorio", alert.getText());
-	alert.accept();
-		
+  	Assert.assertEquals("Nome eh obrigatorio", dsl.alertaObterTextoEAceita());
 	
 	}
 	
@@ -48,24 +43,21 @@ public class TestsRegrasDeNegocios {
 		
 	dsl.escreve("elementosForm:nome", "Gilberlei");
 	dsl.clicarBotao("elementosForm:cadastrar");	
-	Alert alert = driver.switchTo().alert();	
-	
-	Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
-	alert.accept();
 		
-	}
+	Assert.assertEquals("Sobrenome eh obrigatorio", dsl.alertaObterTextoEAceita());
+	
+		}
 	
 	@Test
 	public void desafioRegrasDeNegocioSexo() {
 	
 	dsl.escreve("elementosForm:nome", "Gilberlei");
-	dsl.escreve("elementosForm:nome", "Quaresma");
+	dsl.escreve("elementosForm:Sobrenome", "Quaresma");
 	dsl.clicarBotao("elementosForm:cadastrar");	
-	Alert alert = driver.switchTo().alert();	
 	
-	Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
-	alert.accept();
-		
+	Assert.assertEquals("Sexo eh obrigatorio", dsl.alertaObterTextoEAceita());
+	
+	
 	}
 	
 	
@@ -73,15 +65,15 @@ public class TestsRegrasDeNegocios {
 	public void desafioRegrasDeNegocioComida() {
 		
 		dsl.escreve("elementosForm:nome", "Gilberlei");
-		dsl.escreve("elementosForm:nome", "Quaresma");
+		dsl.escreve("elementosForm:Sobrenome", "Quaresma");
 	    dsl.clicarRadio("elementosForm:sexo:0");	
 	    dsl.clicarRadio("elementosForm:comidaFavorita:0");
 	    dsl.clicarRadio("elementosForm:comidaFavorita:3");
-	    dsl.clicarBotao("elementosForm:cadastrar");
-	Alert alert = driver.switchTo().alert();	
+	    dsl.clicarBotao("elementosForm:cadastrar");	
+	   
+	   
+	Assert.assertEquals("Tem certeza que voce eh vegetariano?", dsl.alertaObterTextoEAceita() );	
 	
-	Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
-	alert.accept();
 		
 	}
 
@@ -90,17 +82,16 @@ public class TestsRegrasDeNegocios {
 		
 		
 		dsl.escreve("elementosForm:nome", "Gilberlei");
-		dsl.escreve("elementosForm:nome", "Quaresma");
+		dsl.escreve("elementosForm:Sobrenome", "Quaresma");
 		dsl.clicarRadio("elementosForm:sexo:0");	
 		dsl.clicarRadio("elementosForm:comidaFavorita:3");
 		dsl.selecionarCombo("elementosForm:esportes", "Futebol");
 		dsl.selecionarCombo("elementosForm:esportes", "O que eh esporte?");	
 		dsl.clicarBotao("elementosForm:cadastrar");
-	Alert alert = driver.switchTo().alert();
+	
 		
-	Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
-	alert.accept();
-		
+	Assert.assertEquals("Voce faz esporte ou nao?", dsl.alertaObterTextoEAceita());
+			
 	}
 	
 

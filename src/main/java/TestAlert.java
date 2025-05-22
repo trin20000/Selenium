@@ -2,8 +2,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -35,14 +33,13 @@ private DSL dsl;
 	@Test
 	public void interagirComAlertSimples() {
 	
-	//driver.findElement(By.id("alert")).click();
-	dsl.clicarBotao("alert");
-	//Alert alert = driver.switchTo().alert();
-	String texto =  alert.getText();
-	Assert.assertEquals("Alert Simples", texto);
-	alert.accept();
 	
-	driver.findElement(By.id("elementosForm:nome")).sendKeys(texto);
+	dsl.clicarBotao("alert");
+	
+	String texto =  dsl.alertaObterTextoEAceita();
+	Assert.assertEquals("Alert Simples", texto );	
+	
+	dsl.escreve("elementosForm:nome", texto);
 	
 	}
 	
@@ -50,26 +47,18 @@ private DSL dsl;
 	@Test
 	public void interagirComAlertConfirm() {
 		
-	driver.findElement(By.id("confirm")).click();
-	Alert confirm = driver.switchTo().alert();
-	Assert.assertEquals("Confirm Simples", confirm.getText());
-	confirm.accept();
-	String msg = confirm.getText();
-	Assert.assertEquals("Confirmado", msg);
-	confirm.accept();
-	
+		dsl.clicarBotao("confirm");
+		Assert.assertEquals("Confirm Simples",  dsl.alertaObterTextoEAceita());
+		Assert.assertEquals("Confirmado",  dsl.alertaObterTextoEAceita());
 	}
 	
 	
 	@Test
 	public void interagirComAlertConfirmCancelar() {
 		
-	driver.findElement(By.id("confirm")).click();
-	Alert confirm = driver.switchTo().alert();	
-	confirm.dismiss();
-	String msg = confirm.getText();
-	Assert.assertEquals("Negado", msg);
-	confirm.dismiss();
+		dsl.clicarBotao("confirm");	
+		Assert.assertEquals("Confirm Simples",  dsl.alertaObterTextoCancel());	
+		Assert.assertEquals("Negado",  dsl.alertaObterTextoCancel());	
 	
 	}
 	
@@ -77,15 +66,15 @@ private DSL dsl;
 	@Test
 	public void interagirComAlertPrompt() {
 		
-	driver.findElement(By.id("prompt")).click();
-	Alert alert = driver.switchTo().alert();	
-	Assert.assertEquals("Digite um numero", alert.getText());	
-	alert.sendKeys("12");
-	alert.accept();
-	Assert.assertEquals("Era 12?", alert.getText());
-	alert.accept();	
-	Assert.assertEquals(":D", alert.getText());
-	alert.accept();
+    dsl.clicarBotao("prompt");
+			
+	Assert.assertEquals("Digite um numero", dsl.alertaObterTexto());
+	
+	dsl.alertEscreve("12");
+	
+	Assert.assertEquals("Era 12?", dsl.alertaObterTextoEAceita());		
+	Assert.assertEquals(":D", dsl.alertaObterTextoEAceita());
+	
 	
 	}
 	
@@ -93,15 +82,12 @@ private DSL dsl;
 	@Test
 	public void interagirComAlertPromptCanceling() {
 		
-	driver.findElement(By.id("prompt")).click();
-	Alert alert = driver.switchTo().alert();	
-	Assert.assertEquals("Digite um numero", alert.getText());	
-	alert.dismiss();	
-	Assert.assertEquals("Era null?", alert.getText());
-	alert.dismiss();	
-	Assert.assertEquals(":(", alert.getText());
-	alert.dismiss();
-		
+	dsl.clicarBotao("prompt");
+	
+	Assert.assertEquals("Digite um numero", dsl.alertaObterTextoCancel());	
+	Assert.assertEquals("Era null?", dsl.alertaObterTextoCancel());	
+	Assert.assertEquals(":(", dsl.alertaObterTextoCancel());
+			
 	}	
 	
 	
