@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
@@ -44,6 +45,17 @@ private DSL dsl;
 	driver.switchTo().defaultContent();
 	dsl.escreve("elementosForm:nome", msg);	
 	
+	}
+	
+	@Test
+	public void deveInteragirComFrameEscondido() {
+		WebElement frame = driver.findElement(By.id("frame2"));
+		dsl.executarJS("window.scrollBy(0, arguments[0])", frame.getLocation().y);
+		dsl.changeToFrame("frame2");
+		dsl.clicarBotao("frameButton");
+		
+		//String msg = dsl.alertaObterTexto();
+		Assert.assertEquals("Frame OK!", dsl.alertaObterTextoEAceita());
 	}
 	
 	
