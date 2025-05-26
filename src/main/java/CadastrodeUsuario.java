@@ -39,13 +39,13 @@ private CadastroUsuarioPage page;
 	page.cadastrar();
 	
 	
-	Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
-	Assert.assertTrue(page.obterNomeCadastro().endsWith("Gilberlei"));
-	Assert.assertEquals("Sobrenome: Quaresma", page.obterSobrenomeCadastro());
-	Assert.assertEquals("Sexo: Masculino", page.obterSexoCadastro());
-	Assert.assertEquals("Comida: Carne", page.obterComidaFavoritaCadastro());
-	Assert.assertEquals("Escolaridade: 1grauincomp", page.obterEscolaridadeCadastro());
-	Assert.assertEquals("Esportes: Futebol", page.obterEsporteCadastro());
+	Assert.assertEquals("Cadastrado!", page.obterResultadoCadastro());
+	Assert.assertEquals("Gilberlei", page.obterNomeCadastro());
+	Assert.assertEquals("Quaresma", page.obterSobrenomeCadastro());
+	Assert.assertEquals("Masculino", page.obterSexoCadastro());
+	Assert.assertEquals("Carne", page.obterComidaFavoritaCadastro());
+	Assert.assertEquals("1grauincomp", page.obterEscolaridadeCadastro());
+	Assert.assertEquals("Futebol", page.obterEsporteCadastro());
 	
 	}
 	

@@ -45,11 +45,13 @@ public class DSL {
 	}
 	
 	/******************** Radio & Check *****************/
-	
+	public void clicarRadio(By by) {
+		driver.findElement(by).click();	
+	}
 		
 	
 	public void clicarRadio(String id) {
-		driver.findElement(By.id(id)).click();	
+		clicarRadio(By.id(id));	
 	}
 	
 	public boolean isRadioMarcado(String id) {
@@ -90,6 +92,14 @@ public class DSL {
 	
 	
 	/************************ interação com combo **********************/
+	
+public void selecionarCombo1(String xpath, String valor) {
+		
+		WebElement element = driver.findElement(By.xpath(xpath));
+		Select combo = new Select(element);
+		combo.selectByVisibleText(valor);
+		
+	}
 	
 	
 public void selecionarCombo(String id, String valor) {
@@ -266,7 +276,7 @@ public void selecionarCombo(String id, String valor) {
 
 
 	private int obterIndiceLinha(String valor, WebElement tabela, int idColuna) {
-		List<WebElement> linhas = tabela.findElements(By.xpath(".//tr/td["+idColuna+"]"));
+		List<WebElement> linhas = tabela.findElements(By.xpath("./tbody/tr/td["+idColuna+"]"));
 		int idLinha = -1;
 		for(int i=0; i < linhas.size(); i++) {
 			if(linhas.get(i).getText().equals(valor)) {

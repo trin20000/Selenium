@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 public class CadastroUsuarioPage {
 	
@@ -41,32 +42,32 @@ public class CadastroUsuarioPage {
 	}
 
 	public String obterResultadoCadastro() {
-		return dsl.obterTexto("resultado");
+		return dsl.obterTexto(By.xpath("//div[@id='resultado']//span"));
 	}
 
 	public String obterNomeCadastro() {
-		return dsl.obterTexto("descNome");
+		return dsl.obterTexto(By.xpath("//div[@id='descNome']//span"));
 
 	}
 
 	public String obterSobrenomeCadastro() {
-		return dsl.obterTexto("descSobrenome");
+		return dsl.obterTexto(By.xpath("//div[@id='descSobrenome']//span"));
 	}
 	
 	public String obterSexoCadastro() {
-		return dsl.obterTexto("descSexo");
+		return dsl.obterTexto(By.xpath("//div[@id='descSexo']//span"));
 	}
 	
 	public String obterComidaFavoritaCadastro() {
-		return dsl.obterTexto("descComida");
+		return dsl.obterTexto(By.xpath("//div[@id='descComida']//span"));
 	}
 	
 	public String obterEscolaridadeCadastro() {
-		return dsl.obterTexto("descEscolaridade");
+		return dsl.obterTexto(By.xpath("//div[@id='descEscolaridade']//span"));
 	}
 	
 	public String obterEsporteCadastro() {
-		return dsl.obterTexto("descEsportes");
+		return dsl.obterTexto(By.xpath("//div[@id='descEsportes']//span"));
 	}
 
 }

@@ -155,7 +155,7 @@ private DSL dsl;
 		
 		@Test
 		public void deveClicarBotaoTabela() {
-			dsl.clicarBotaoTabela("Nome", "Maria", "Botao", "elementosForm:tableUsuarios");
+			dsl.clicarBotaoTabela("Escolaridade", "Mestrado", "Radio", "elementosForm:tableUsuarios");
 		}
 	
 }
