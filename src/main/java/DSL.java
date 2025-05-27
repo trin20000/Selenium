@@ -96,8 +96,9 @@ public class DSL {
 public void selecionarCombo1(String xpath, String valor) {
 		
 		WebElement element = driver.findElement(By.xpath(xpath));
-		Select combo = new Select(element);
-		combo.selectByVisibleText(valor);
+		element.click();
+		element.findElement(By.xpath(valor)).click();
+		
 		
 	}
 	

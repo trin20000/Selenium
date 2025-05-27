@@ -30,7 +30,7 @@ public class TestPrimeCombo {
 	
 	@Test
 	public void deveInteragirComCombo() {
-		dsl.selecionarCombo1("//form[@id='j_idt248']//span[@id='j_idt248:option_label']", "Option1");	
+		dsl.selecionarCombo1("//form[@id='j_idt248']//span[@id='j_idt248:option_label']", "//*[@id='j_idt248:option_1']");	
 		
 		
 	}
