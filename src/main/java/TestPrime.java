@@ -25,7 +25,7 @@ public class TestPrime {
 		@After	
 		public void finaliza() {
 			
-			//driver.quit();
+			driver.quit();
 		}
 	
 	@Test

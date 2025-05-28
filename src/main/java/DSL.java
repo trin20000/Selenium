@@ -93,13 +93,18 @@ public class DSL {
 	
 	/************************ interação com combo **********************/
 	
-public void selecionarCombo1(String xpath, String valor) {
+	
+	
+	public void selecionarComboPrime(String radical, String valor) {
+	clicarRadio(By.xpath("//form[@id='"+radical+"']//span[@id='j_idt248:option_label']"));
+	clicarRadio(By.xpath("//*[@id='"+valor+"']"));
+	
+	}
+	
+	public String obterValorComboPrime(String id) {
 		
-		WebElement element = driver.findElement(By.xpath(xpath));
-		element.click();
-		element.findElement(By.xpath(valor)).click();
-		
-		
+		WebElement element = driver.findElement(By.xpath(id));	
+		return element.getText();
 	}
 	
 	

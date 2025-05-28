@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Dimension;
@@ -25,14 +26,15 @@ public class TestPrimeCombo {
 			
 			//driver.quit();
 		}
+		
 	
 	
 	
 	@Test
-	public void deveInteragirComCombo() {
-		dsl.selecionarCombo1("//form[@id='j_idt248']//span[@id='j_idt248:option_label']", "//*[@id='j_idt248:option_1']");	
-		
-		
+	public void deveInteragirComComboPrime() {
+	dsl.selecionarComboPrime("j_idt248", "j_idt248:option_1");
+	Assert.assertEquals("Option1", dsl.obterValorComboPrime("//form[@id='j_idt248']//span[@id='j_idt248:option_label']"));
+	
 	}
 
 }
